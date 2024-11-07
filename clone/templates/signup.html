@@ -1,0 +1,103 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/login.css' %}" />
+    
+    <title>Signup</title>
+</head>
+<body>
+
+    <div class="bg-image">
+        <div class="signup-container">
+            <h1>Signup</h1>
+            <h2>Unlimited movies, TV shows, and more.</h2>
+
+            <div>
+                <style>
+                    h5{
+                        color: red;
+                    }
+                </style>
+                {% for message in messages %}
+                <h5>{{message}}</h5>
+                {% endfor %}
+            </div>
+            
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Email Field -->
+                <div class="form-field">
+                    <label for="id_email">Email Address</label>
+                    <input type="email" name="email" id="id_email" placeholder="Email address" value="{{ form.email.value }}" />
+                    {% if form.email.errors %}
+                        <div class="errors">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+              
+
+                <!-- Username Field -->
+                <div class="form-field">
+                    <label for="id_username">Username</label>
+                    <input type="text" name="username" id="id_username" placeholder="Username" value="{{ form.username.value }}" />
+                    {% if form.username.errors %}
+                        <div class="errors">
+                            {% for error in form.username.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+
+                <!-- Password Field -->
+                <div class="form-field">
+                    <label for="id_password0">Password</label>
+                    <input type="password" name="password0" id="password0" placeholder="Password" />
+                    {% if form.password0.errors %}
+                        <div class="errors">
+                            {% for error in form.password0.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+               
+
+                <!-- Repeat Password Field -->
+                <div class="form-field">
+                    <label for="id_password1">Repeat Password</label>
+                    <input type="password" name="password1" id="password1" placeholder="Repeat Password" />
+                    {% if form.password1.errors %}
+                        <div class="errors">
+                            {% for error in form.password1.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+
+                <!-- Submit Button -->
+                <button type="submit" class="signup-btn">Get Started</button>
+            </form>
+
+            <div class="help-text" align="center">
+                <span>Ready to watch? Enter your email to create or restart your membership.</span>
+                <br><br>
+                <span>Already have an account? <a href="{% url 'login' %}">Login</a></span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
